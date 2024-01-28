@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Test class for the Inventory class
- * author: jimgray9999
+ * @author: jimgray9999
  */
 public class testInventory {
     ArrayList<Inventory> inventoryList;
@@ -18,6 +18,11 @@ public class testInventory {
         inventoryList.add(new Inventory("Boots", 79.95, 500));
     }
 
+
+    /**
+     * Test for successfully adding a new item to the inventoryList
+     * @author: jimgray9999
+     */
     @Test
     public void putAddItem() {
         try {
@@ -25,12 +30,15 @@ public class testInventory {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        System.out.println(inventoryList.get(0).toString());
-        System.out.println(inventoryList.get(1).toString());
+        printAllItems(inventoryList);
     }
 
 
     // TODO remove item
+    /**
+     * Test for successfully removing an item to the inventoryList
+     * @author: jimgray9999
+     */
     @Test
     public void removeItem() {
         System.out.println(inventoryList.toString());
@@ -42,5 +50,11 @@ public class testInventory {
         // add the number to the quantity
         // will either deduct if a negative number or add if positive
         System.out.println("Updated quantity of item.");
+    }
+
+    public void printAllItems(ArrayList<Inventory> arrListToPrint){
+        for (Inventory inventory : arrListToPrint) {
+            System.out.println(inventory.toString());
+        }
     }
 }

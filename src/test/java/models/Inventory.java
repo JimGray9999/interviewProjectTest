@@ -10,4 +10,13 @@ public class Inventory {
         this.price = price;
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
