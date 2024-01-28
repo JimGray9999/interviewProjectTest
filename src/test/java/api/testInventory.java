@@ -25,7 +25,6 @@ public class testInventory {
         inventoryList.add(new Inventory("Boots", 79.95, 600));
     }
 
-
     /**
      * Test to validate adding a new item to the inventoryList
      * @author: jimgray9999
@@ -40,8 +39,6 @@ public class testInventory {
         extent.flush();
     }
 
-
-    // TODO remove item
     /**
      * Test to validate removing an item from the inventoryList
      * @author: jimgray9999
@@ -53,20 +50,19 @@ public class testInventory {
 
         // search item name in inventorylist
         // remove each instance found
+        printAllItems(inventoryList);
         for (Inventory inventory : inventoryList) {
             if(inventory.getName() == itemToRemove){
                 System.out.println("found " + itemToRemove + " will remove.");
-                printAllItems(inventoryList);
-
+                inventoryList.remove(inventory);
             }
-
         }
+        printAllItems(inventoryList);
         extent.createTest("removeItem")
                 .log(Status.PASS, "TODO: removeItem");
         extent.flush();
     }
 
-    // TODO update quantity
     /**
      * Test to validate updating an item quantity to the inventoryList
      * @author: jimgray9999
