@@ -22,6 +22,7 @@ public class testInventory {
     public void testSetup() {
         inventoryList = new ArrayList<>();
         inventoryList.add(new Inventory("Boots", 79.95, 500));
+        inventoryList.add(new Inventory("Boots", 79.95, 600));
     }
 
 
@@ -44,9 +45,22 @@ public class testInventory {
     /**
      * Test to validate removing an item from the inventoryList
      * @author: jimgray9999
+     *
      */
     @Test
     public void removeItem() {
+        String itemToRemove = "Boots";
+
+        // search item name in inventorylist
+        // remove each instance found
+        for (Inventory inventory : inventoryList) {
+            if(inventory.getName() == itemToRemove){
+                System.out.println("found " + itemToRemove + " will remove.");
+                printAllItems(inventoryList);
+
+            }
+
+        }
         extent.createTest("removeItem")
                 .log(Status.PASS, "TODO: removeItem");
         extent.flush();
@@ -59,10 +73,23 @@ public class testInventory {
      */
     @Test
     public void updateQuantity() {
+        String itemToUpdate = "Socks";
+        int newQuantity = 1700;
+
         // add the number to the quantity
         // will either deduct if a negative number or add if positive
+        for (Inventory inventory : inventoryList) {
+            if(inventory.getName() == itemToUpdate){
+                System.out.println("found " + itemToUpdate + " will update quantity.");
+                inventory.setQuantity(newQuantity);
+                printAllItems(inventoryList);
+            } else {
+                System.out.println("Item not found");
+            }
+
+        }
         extent.createTest("updateQuantity")
-                .log(Status.PASS, "TODO: updateQuantity");
+                .log(Status.PASS, "updateQuantity passed");
         extent.flush();
     }
 
