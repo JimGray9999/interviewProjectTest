@@ -73,19 +73,21 @@ public class testInventory {
      */
     @Test
     public void updateQuantity() {
-        String itemToUpdate = "Socks";
+        String itemToUpdate = "Boots";
         int newQuantity = 1700;
 
         // add the number to the quantity
         // will either deduct if a negative number or add if positive
+        printAllItems(inventoryList);
         for (Inventory inventory : inventoryList) {
             if(inventory.getName() == itemToUpdate){
                 System.out.println("found " + itemToUpdate + " will update quantity.");
                 inventory.setQuantity(newQuantity);
-                printAllItems(inventoryList);
             } else {
                 System.out.println("Item not found");
             }
+
+            printAllItems(inventoryList);
 
         }
         extent.createTest("updateQuantity")
