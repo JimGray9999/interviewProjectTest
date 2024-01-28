@@ -6,6 +6,10 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Test class for the Inventory class
+ * author: jimgray9999
+ */
 public class testInventory {
     ArrayList<Inventory> inventoryList;
     @BeforeTest
