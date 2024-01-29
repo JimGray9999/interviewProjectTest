@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+// code snippets sourced from researching how to setup a data provider using CSV files
 public class CsvDataProvider {
     @DataProvider(name = "csvDataProvider")
     public static Object[][] createDataFromCsv() {
