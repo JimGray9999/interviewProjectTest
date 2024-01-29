@@ -1,12 +1,15 @@
 package api;
 
 import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import models.Inventory;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Test class for the Inventory class
@@ -21,6 +24,7 @@ public class testInventory {
     @BeforeTest
     public void testSetup() {
         inventoryList = new ArrayList<>();
+        extent.attachReporter(spark);
     }
 
     /**
@@ -29,14 +33,12 @@ public class testInventory {
      */
     @Test(dataProvider = "csvDataProvider", dataProviderClass = CsvDataProvider.class)
     public void putAddItem(String testCaseName, String name, String price, String quantity) {
+        ExtentTest test = extent.createTest("putAddItem: " + testCaseName);
         double testPrice = Double.parseDouble(price);
         int testQuantity = Integer.parseInt(quantity);
         inventoryList.add(new Inventory(name, testPrice, testQuantity));
-        printAllItems(inventoryList);
-        extent.attachReporter(spark);
-        extent.createTest(testCaseName)
-                .log(Status.PASS, name + " added successfully");
-        extent.flush();
+        printAllItems(test, inventoryList);
+        test.log(Status.PASS, "putAddItem: " + testCaseName + " passed.");
     }
 
     /**
@@ -48,20 +50,22 @@ public class testInventory {
     // TODO: Remove each item that matches the name
     @Test
     public void removeItem() {
+        ExtentTest test = extent.createTest("removeItem");
+        inventoryList.add(new Inventory("Boots", 56.97, 1600));
         String itemToRemove = "Boots";
-        System.out.println("Inventory before removal:");
-        printAllItems(inventoryList);
+        test.log(Status.INFO, "Inventory before removal:");
+        printAllItems(test, inventoryList);
+
         for (Inventory inventory : inventoryList) {
-            if(inventory.getName() == itemToRemove){
-                System.out.println("found " + itemToRemove + " will remove.");
+            if(Objects.equals(inventory.getName(), itemToRemove)){
+                test.log(Status.INFO, "Found record: " + itemToRemove + ", removing.");
                 inventoryList.remove(inventory);
+                break;
             }
         }
-        System.out.println("Inventory after removal:");
-        printAllItems(inventoryList);
-        extent.createTest("removeItem")
-                .log(Status.PASS, "Item removed");
-        extent.flush();
+        test.log(Status.INFO,"Inventory after removal:");
+        printAllItems(test, inventoryList);
+        test.log(Status.PASS, "removeItem passed");
     }
 
     /**
@@ -70,26 +74,25 @@ public class testInventory {
      */
     @Test
     public void updateQuantity() {
+        ExtentTest test = extent.createTest("updateQuantity");
+        inventoryList.add(new Inventory("Boots", 56.97, 1600));
         String itemToUpdate = "Boots";
         int newQuantity = 1700;
 
-        // add the number to the quantity
-        // will either deduct if a negative number or add if positive
-        printAllItems(inventoryList);
+        test.log(Status.INFO, "Inventory Before update:");
+        printAllItems(test, inventoryList);
         for (Inventory inventory : inventoryList) {
-            if(inventory.getName() == itemToUpdate){
-                System.out.println("found " + itemToUpdate + " will update quantity.");
+            if(Objects.equals(inventory.getName(), itemToUpdate)){
+                test.log(Status.INFO,"Found " + itemToUpdate + " will update quantity.");
                 inventory.setQuantity(newQuantity);
             } else {
                 System.out.println("Item not found");
             }
-
-            printAllItems(inventoryList);
+            test.log(Status.INFO, "Inventory After update:");
+            printAllItems(test, inventoryList);
 
         }
-        extent.createTest("updateQuantity")
-                .log(Status.PASS, "updateQuantity passed");
-        extent.flush();
+        test.log(Status.PASS, "updateQuantity passed");
     }
 
     /**
@@ -97,9 +100,13 @@ public class testInventory {
      *
      * @param arrListToPrint - the arrayList that should contain all the Inventory class items
      */
-    public void printAllItems(ArrayList<Inventory> arrListToPrint){
-        for (Inventory inventory : arrListToPrint) {
-            System.out.println(inventory.toString());
-        }
+    public void printAllItems(ExtentTest test, ArrayList<Inventory> arrListToPrint){
+        for (Inventory inventory : arrListToPrint)
+            test.log(Status.INFO, inventory.toString());
+    }
+
+    @AfterTest
+    public void tearDown(){
+        extent.flush();
     }
 }
