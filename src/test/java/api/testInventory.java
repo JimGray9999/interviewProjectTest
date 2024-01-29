@@ -21,8 +21,6 @@ public class testInventory {
     @BeforeTest
     public void testSetup() {
         inventoryList = new ArrayList<>();
-        inventoryList.add(new Inventory("Boots", 79.95, 500));
-        inventoryList.add(new Inventory("Boots", 79.95, 600));
     }
 
     /**
@@ -30,14 +28,14 @@ public class testInventory {
      * @author: jimgray9999
      */
     @Test(dataProvider = "csvDataProvider", dataProviderClass = CsvDataProvider.class)
-    public void putAddItem(String name, String price, String quantity) {
-        Double testPrice = Double.parseDouble(price);
-        Integer testQuantity = Integer.parseInt(quantity);
+    public void putAddItem(String testCaseName, String name, String price, String quantity) {
+        double testPrice = Double.parseDouble(price);
+        int testQuantity = Integer.parseInt(quantity);
         inventoryList.add(new Inventory(name, testPrice, testQuantity));
         printAllItems(inventoryList);
         extent.attachReporter(spark);
-        extent.createTest("putAddItem")
-                .log(Status.PASS, "Item added successfully");
+        extent.createTest(testCaseName)
+                .log(Status.PASS, name + " added successfully");
         extent.flush();
     }
 

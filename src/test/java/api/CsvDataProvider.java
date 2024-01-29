@@ -17,7 +17,9 @@ public class CsvDataProvider {
             for (CSVRecord record : records) {
                 String column1 = record.get(0);
                 String column2 = record.get(1);
-                data.add(new Object[]{column1, column2});
+                String column3 = record.get(2);
+                String column4 = record.get(3);
+                data.add(new Object[]{column1, column2, column3, column4});
             }
         } catch (Exception e) {
             e.printStackTrace();

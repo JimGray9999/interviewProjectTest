@@ -1,4 +1,3 @@
-name,price,quantity
-"Socks",9.95,600
-"Boots",79.95,250
-"Jacket",129.95,400
+"Add Socks","Socks","+9.95d","600"
+"Add Boots","Boots","+79.95d","250"
+"Add Jacket","Jacket","+129.95d","400"
