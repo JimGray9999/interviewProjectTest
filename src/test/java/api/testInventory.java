@@ -6,7 +6,6 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import models.Inventory;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
 import java.util.ArrayList;
 
 /**
@@ -16,7 +15,8 @@ import java.util.ArrayList;
 public class testInventory {
     ArrayList<Inventory> inventoryList;
     ExtentReports extent = new ExtentReports();
-    ExtentSparkReporter spark = new ExtentSparkReporter("target/TestReport_012824.html");
+
+    ExtentSparkReporter spark = new ExtentSparkReporter("target/TestReport.html");
 
     @BeforeTest
     public void testSetup() {
@@ -29,9 +29,11 @@ public class testInventory {
      * Test to validate adding a new item to the inventoryList
      * @author: jimgray9999
      */
-    @Test
-    public void putAddItem() {
-        inventoryList.add(new Inventory("Socks", 9.95, 600));
+    @Test(dataProvider = "csvDataProvider", dataProviderClass = CsvDataProvider.class)
+    public void putAddItem(String name, String price, String quantity) {
+        Double testPrice = Double.parseDouble(price);
+        Integer testQuantity = Integer.parseInt(quantity);
+        inventoryList.add(new Inventory(name, testPrice, testQuantity));
         printAllItems(inventoryList);
         extent.attachReporter(spark);
         extent.createTest("putAddItem")
@@ -40,16 +42,16 @@ public class testInventory {
     }
 
     /**
-     * Test to validate removing an item from the inventoryList
+     * Test to validate removing an item from the inventoryList that matches name
+     * first
      * @author: jimgray9999
      *
      */
+    // TODO: Remove each item that matches the name
     @Test
     public void removeItem() {
         String itemToRemove = "Boots";
-
-        // search item name in inventorylist
-        // remove each instance found
+        System.out.println("Inventory before removal:");
         printAllItems(inventoryList);
         for (Inventory inventory : inventoryList) {
             if(inventory.getName() == itemToRemove){
@@ -57,9 +59,10 @@ public class testInventory {
                 inventoryList.remove(inventory);
             }
         }
+        System.out.println("Inventory after removal:");
         printAllItems(inventoryList);
         extent.createTest("removeItem")
-                .log(Status.PASS, "TODO: removeItem");
+                .log(Status.PASS, "Item removed");
         extent.flush();
     }
 

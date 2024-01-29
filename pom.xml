@@ -28,6 +28,12 @@
             <version>5.0.9</version>
         </dependency>
 
+        <!-- Apache Commons CSV -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.8</version>
+        </dependency>
     </dependencies>
 
 </project>
