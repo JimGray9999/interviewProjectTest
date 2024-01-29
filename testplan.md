@@ -1,11 +1,12 @@
-Manual Test Plan Creation
+# Manual Test Plan Creation
+## Summary: 
 You have been assigned to design a test plan for a new e-commerce website
 that includes features such as user registration, product search, and online checkout.
 And a special user registration that allows them to sell a product.
 
-Key components:
+## Key components:
 
-UI
+### UI
 - Login page
 - search page
 - add item
@@ -14,13 +15,13 @@ UI
 - checkout page
 - seller registration
 
-API
+### API
 - customer information crud
 - seller information crud
 - inventory crud
 -
 
-DB
+### DB
 - users
 -   inventory
 -   profile information
@@ -31,7 +32,7 @@ DB
     -   quantity
 
 
-Key stakeholders:
+### Key stakeholders:
 - who is going to use the inventory system?
 - internal stakeholders: models.Inventory Owner(s)
 
