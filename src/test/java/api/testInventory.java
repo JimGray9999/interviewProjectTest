@@ -5,6 +5,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import models.Inventory;
+import models.InventoryCrud;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -17,8 +18,8 @@ import java.util.Objects;
  */
 public class testInventory {
     ArrayList<Inventory> inventoryList;
+    InventoryCrud inventoryCrud = new InventoryCrud();
     ExtentReports extent = new ExtentReports();
-
     ExtentSparkReporter spark = new ExtentSparkReporter("target/TestReport.html");
 
     @BeforeTest
@@ -32,13 +33,14 @@ public class testInventory {
      * @author: jimgray9999
      */
     @Test(dataProvider = "csvDataProvider", dataProviderClass = CsvDataProvider.class)
-    public void putAddItem(String testCaseName, String name, String price, String quantity) {
-        ExtentTest test = extent.createTest("putAddItem: " + testCaseName);
+    public void testAddItem(String testCaseName, String name, String price, String quantity) {
+        ExtentTest test = extent.createTest("testAddItem: " + testCaseName);
         double testPrice = Double.parseDouble(price);
         int testQuantity = Integer.parseInt(quantity);
         inventoryList.add(new Inventory(name, testPrice, testQuantity));
+        inventoryCrud.getInventory(inventoryList);
         printAllItems(test, inventoryList);
-        test.log(Status.PASS, "putAddItem: " + testCaseName + " passed.");
+        test.log(Status.PASS, "testAddItem: " + testCaseName + " passed.");
     }
 
     /**
@@ -49,8 +51,8 @@ public class testInventory {
      */
     // TODO: Remove each item that matches the name
     @Test
-    public void removeItem() {
-        ExtentTest test = extent.createTest("removeItem");
+    public void testRemoveItem() {
+        ExtentTest test = extent.createTest("testRemoveItem");
         inventoryList.add(new Inventory("Boots", 56.97, 1600));
         String itemToRemove = "Boots";
         test.log(Status.INFO, "Inventory before removal:");
@@ -65,7 +67,7 @@ public class testInventory {
         }
         test.log(Status.INFO,"Inventory after removal:");
         printAllItems(test, inventoryList);
-        test.log(Status.PASS, "removeItem passed");
+        test.log(Status.PASS, "testRemoveItem passed");
     }
 
     /**
@@ -73,8 +75,8 @@ public class testInventory {
      * @author: jimgray9999
      */
     @Test
-    public void updateQuantity() {
-        ExtentTest test = extent.createTest("updateQuantity");
+    public void testUpdateQuantity() {
+        ExtentTest test = extent.createTest("testUpdateQuantity");
         inventoryList.add(new Inventory("Boots", 56.97, 1600));
         String itemToUpdate = "Boots";
         int newQuantity = 1700;
@@ -92,7 +94,7 @@ public class testInventory {
             printAllItems(test, inventoryList);
 
         }
-        test.log(Status.PASS, "updateQuantity passed");
+        test.log(Status.PASS, "testUpdateQuantity passed");
     }
 
     /**
@@ -100,7 +102,7 @@ public class testInventory {
      *
      * @param arrListToPrint - the arrayList that should contain all the Inventory class items
      */
-    public void printAllItems(ExtentTest test, ArrayList<Inventory> arrListToPrint){
+    private void printAllItems(ExtentTest test, ArrayList<Inventory> arrListToPrint){
         for (Inventory inventory : arrListToPrint)
             test.log(Status.INFO, inventory.toString());
     }
