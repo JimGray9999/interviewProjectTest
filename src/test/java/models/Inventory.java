@@ -2,30 +2,26 @@ package models;
 
 public class Inventory {
     private Integer quantity;
-
     private String name;
+    private Double price;
 
-    public void setQuantity(Integer quantity) {
+    // Constructor
+    public Inventory(String name, Double price, Integer quantity) {
+        this.name = name;
+        this.price = price;
         this.quantity = quantity;
     }
 
-    private Double price;
-
+    // Getters and Setters //
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
     public Integer getQuantity() {
         return quantity;
     }
     public String getName() {
         return name;
     }
-
     public Double getPrice(){
         return price;
-    }
-
-    public Inventory(String name, Double price, Integer quantity) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
     }
 
     @Override
