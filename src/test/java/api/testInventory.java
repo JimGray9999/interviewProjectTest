@@ -6,6 +6,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import models.Inventory;
 import models.InventoryCrud;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -106,8 +107,9 @@ public class testInventory {
             test.log(Status.INFO, inventory.toString());
     }
 
-    @AfterTest
-    public void tearDown(){
+    @AfterMethod
+    public void cleanUp(){
         extent.flush();
+        inventoryList.clear();
     }
 }
