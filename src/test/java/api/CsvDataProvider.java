@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CsvDataProvider {
-
     @DataProvider(name = "csvDataProvider")
     public static Object[][] createDataFromCsv() {
         List<Object[]> data = new ArrayList<>();

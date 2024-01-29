@@ -1,4 +1,4 @@
-eCommerce Test Suite
+# eCommerce Test Suite
 
 - Test Suite running test methods against a hypothetical ecommerce inventory management system
 
@@ -27,5 +27,7 @@ Models:
 Future Enhancements:
 - Migrate all test CRUD features from test methods and into InventoryCrud class
 - Add data provider to remaining test methods
+- Run data provider with a data file for each test method
 - Add assertions to validate changes were made as expected
 - Update testRemoveItem method to also remove any item that matches the item name provided
+- Add user management tests, to create sellers that can maintain their own inventories

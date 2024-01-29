@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Test class for the Inventory class
+ * Test class for running tests against the Inventory system
  * @author: jimgray9999
  */
 public class testInventory {
@@ -49,7 +49,6 @@ public class testInventory {
      * @author: jimgray9999
      *
      */
-    // TODO: Remove each item that matches the name
     @Test
     public void testRemoveItem() {
         ExtentTest test = extent.createTest("testRemoveItem");
